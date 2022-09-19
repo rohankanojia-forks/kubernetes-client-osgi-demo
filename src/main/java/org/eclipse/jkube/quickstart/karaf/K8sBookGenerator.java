@@ -13,8 +13,8 @@
  */
 package org.eclipse.jkube.quickstart.karaf;
 
-import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
+import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
 import org.apache.camel.CamelContext;
@@ -38,11 +38,12 @@ public class K8sBookGenerator {
   }
 
   public void createBook() {
-    try (KubernetesClient client = new DefaultKubernetesClient()) {
-      MixedOperation<Book, BookList, Resource<Book>> fooClient = client.customResources(Book.class, BookList.class);
+    try (KubernetesClient client = new KubernetesClientBuilder().build()) {
+      io.fabric8.kubernetes.internal.KubernetesDeserializer.registerCustomKind("testing.fabric8.io/v1alpha1", "Book", Book.class);
+      MixedOperation<Book, BookList, Resource<Book>> fooClient = client.resources(Book.class, BookList.class);
       Book foo = fooClient.load(getClass().getResourceAsStream("/test-foo.yml")).get();
       foo.getMetadata().setName("book" + count);
-      fooClient.inNamespace("default").createOrReplace(foo);
+      fooClient.inNamespace("default").resource(foo).createOrReplace();
     }
   }
 }
