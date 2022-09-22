@@ -17,18 +17,23 @@ import io.fabric8.kubernetes.api.model.APIGroup;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;
 import io.fabric8.kubernetes.client.osgi.ManagedKubernetesClient;
+import org.apache.camel.BeanInject;
 import org.apache.camel.CamelContext;
-import org.osgi.service.component.annotations.Reference;
 
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.Random;
 
 public class K8sBookGenerator {
   private int count = 1;
   private Random random = new Random();
 
-  @Reference
+
+  @BeanInject
   ManagedKubernetesClient kubernetesClient;
+
+//  @BeanInject
+//  ManagedOpenShiftClient kubernetesClient;
 
   public InputStream generateOrder(CamelContext camelContext) {
     final int number = random.nextInt(5) + 1;
@@ -50,8 +55,8 @@ public class K8sBookGenerator {
         .stream()
         .map(APIGroup::getName)
         .forEach(System.out::println);
-//    Book foo = fooClient.load(getClass().getResourceAsStream("/test-foo.yml")).get();
-//    foo.getMetadata().setName("book" + count);
-//    fooClient.inNamespace("default").resource(foo).createOrReplace();
+    Book foo = fooClient.load(getClass().getResourceAsStream("/test-foo.yml")).get();
+    foo.getMetadata().setName("book" + count);
+    fooClient.inNamespace("default").resource(foo).createOrReplace();
   }
 }
