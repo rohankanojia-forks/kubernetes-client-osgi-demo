@@ -14,11 +14,7 @@
 package org.eclipse.jkube.quickstart.karaf;
 
 import io.fabric8.kubernetes.api.model.APIGroup;
-import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.client.KubernetesClient;
-import io.fabric8.kubernetes.client.dsl.MixedOperation;
-import io.fabric8.kubernetes.client.dsl.Resource;
-import io.fabric8.openshift.api.model.DeploymentConfig;
 import io.fabric8.openshift.client.OpenShiftClient;
 import org.apache.camel.BeanInject;
 import org.apache.camel.CamelContext;
@@ -28,17 +24,19 @@ import java.util.Random;
 
 public class K8sBookGenerator {
   private int count = 1;
-  private Random random = new Random();
+  private final Random random = new Random();
 
-  @BeanInject("io.fabric8.kubernetes.client")
-  KubernetesClient kubernetesClient;
+  @BeanInject
+  private KubernetesClient kubernetesClient;
 
   @BeanInject
   OpenShiftClient openShiftClient;
 
   public InputStream generateOrder(CamelContext camelContext) {
     final int number = random.nextInt(5) + 1;
-    createBook();
+    printApiGroups();
+    new BookService().createBook(kubernetesClient, count);
+    new OpenShiftDeploymentService().printDeploymentConfigs(openShiftClient);
     final String orderSource = String.format("data/order%s.xml", number);
     return camelContext.getClassResolver().loadResourceAsStream(orderSource);
   }
@@ -47,23 +45,11 @@ public class K8sBookGenerator {
     return String.format("order%s.xml", count++);
   }
 
-  public void createBook() {
-    io.fabric8.kubernetes.internal.KubernetesDeserializer.registerCustomKind("testing.fabric8.io/v1alpha1", "Book", Book.class);
-    kubernetesClient.resources(Book.class);
-    MixedOperation<Book, BookList, Resource<Book>> fooClient = openShiftClient.resources(Book.class, BookList.class);
-
-    openShiftClient.getApiGroups()
+  private void printApiGroups() {
+    kubernetesClient.getApiGroups()
         .getGroups()
         .stream()
         .map(APIGroup::getName)
         .forEach(System.out::println);
-//    kubernetesClient.deploymentConfigs().inNamespace("default").list().getItems()
-//        .stream()
-//        .map(DeploymentConfig::getMetadata)
-//        .map(ObjectMeta::getName)
-//        .forEach(System.out::println);
-    Book foo = fooClient.load(getClass().getResourceAsStream("/test-foo.yml")).get();
-    foo.getMetadata().setName("book" + count);
-    fooClient.inNamespace("default").resource(foo).createOrReplace();
   }
 }
