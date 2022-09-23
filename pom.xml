@@ -33,11 +33,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <felix.maven.bundle.plugin>5.1.4</felix.maven.bundle.plugin>
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
-    <fabric8.version>6.1.1</fabric8.version>
+<!--    <fabric8.version>6.1.1</fabric8.version>-->
+    <fabric8.version>6.2-SNAPSHOT</fabric8.version>
     <jackson.bundle.version>2.13.1</jackson.bundle.version>
     <zjsonpatch.version>0.3.0</zjsonpatch.version>
     <generex.version>1.0.2</generex.version>
-    <snakeyaml.version>1.30</snakeyaml.version>
+    <snakeyaml.version>1.32</snakeyaml.version>
+<!--    <snakeyaml.version>1.30</snakeyaml.version>-->
     <jkube.generator.from>quay.io/jkube/jkube-karaf-binary-s2i:0.0.10</jkube.generator.from>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     <jsr305.version>3.0.2</jsr305.version>

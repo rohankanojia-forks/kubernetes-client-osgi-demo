@@ -25,14 +25,11 @@
            xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.5.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd              http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
-<!--    <bean id="kubernetesClient" class="io.fabric8.openshift.client.osgi.ManagedOpenShiftClient" activation="lazy">-->
-<!--    </bean>-->
-<!--        <bean id="kubernetesClient" class="io.fabric8.kubernetes.client.osgi.ManagedKubernetesClient" activation="lazy">-->
-<!--        </bean>-->
-    <bean id="kubernetesClient" class="io.fabric8.kubernetes.client.osgi.ManagedKubernetesClient" activation="eager">
-    </bean>
-    <service id="MangedKubernetesClient" ref="kubernetesClient"
-             interface="io.fabric8.kubernetes.client.KubernetesClient" />
+    <bean id="io.fabric8.kubernetes.client" class="io.fabric8.kubernetes.client.osgi.ManagedKubernetesClient" activation="eager"/>
+    <service interface="io.fabric8.kubernetes.client.KubernetesClient" ref="io.fabric8.kubernetes.client" />
+
+    <bean id="io.fabric8.openshift.client" class="io.fabric8.openshift.client.osgi.ManagedOpenShiftClient" activation="lazy"/>
+    <service interface="io.fabric8.openshift.client.OpenShiftClient" ref="io.fabric8.openshift.client" />
 
     <bean id="orderGenerator" class="org.eclipse.jkube.quickstart.karaf.K8sBookGenerator"/>
     <bean id="orderLogger" class="org.slf4j.LoggerFactory" factory-method="getLogger">
