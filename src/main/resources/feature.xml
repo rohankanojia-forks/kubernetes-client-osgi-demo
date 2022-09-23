@@ -52,6 +52,7 @@
     <bundle>mvn:io.fabric8/kubernetes-model-events/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/kubernetes-model-extensions/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/kubernetes-model-flowcontrol/${fabric8.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-model-gatewayapi/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/kubernetes-model-networking/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/kubernetes-model-node/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/kubernetes-model-metrics/${fabric8.version}</bundle>
@@ -59,6 +60,7 @@
     <bundle>mvn:io.fabric8/kubernetes-model-scheduling/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/kubernetes-model-storageclass/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/openshift-model/${fabric8.version}</bundle>
+    <bundle>mvn:io.fabric8/kubernetes-httpclient-okhttp/${fabric8.version}/jar/bundle</bundle>
     <bundle>mvn:io.fabric8/kubernetes-client/${fabric8.version}/jar/bundle</bundle>
   </feature>
 
@@ -67,6 +69,7 @@
     <bundle>mvn:io.fabric8/openshift-client/${fabric8.version}/jar/bundle</bundle>
     <bundle>mvn:io.fabric8/openshift-model-clusterautoscaling/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/openshift-model-console/${fabric8.version}</bundle>
+    <bundle>mvn:io.fabric8/openshift-model-config/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/openshift-model-machine/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/openshift-model-monitoring/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/openshift-model-operator/${fabric8.version}</bundle>
@@ -76,6 +79,8 @@
     <bundle>mvn:io.fabric8/openshift-model-whereabouts/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/openshift-model-storageversionmigrator/${fabric8.version}</bundle>
     <bundle>mvn:io.fabric8/openshift-model-tuned/${fabric8.version}</bundle>
+    <bundle>mvn:io.fabric8/openshift-model-hive/${fabric8.version}</bundle>
+    <bundle>mvn:io.fabric8/openshift-model-installer/${fabric8.version}</bundle>
   </feature>
 
 </features>
