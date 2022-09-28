@@ -18,6 +18,8 @@ import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.openshift.client.OpenShiftClient;
 import org.apache.camel.BeanInject;
 import org.apache.camel.CamelContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.util.Random;
@@ -30,13 +32,15 @@ public class K8sBookGenerator {
   private KubernetesClient kubernetesClient;
 
   @BeanInject
-  OpenShiftClient openShiftClient;
+  private OpenShiftClient openShiftClient;
+
+  private final Logger logger = LoggerFactory.getLogger(K8sBookGenerator.class);
 
   public InputStream generateOrder(CamelContext camelContext) {
     final int number = random.nextInt(5) + 1;
     printApiGroups();
     new BookService().createBook(kubernetesClient, count);
-    new OpenShiftDeploymentService().printDeploymentConfigs(openShiftClient);
+//    new OpenShiftDeploymentService().printDeploymentConfigs(logger, openShiftClient);
     final String orderSource = String.format("data/order%s.xml", number);
     return camelContext.getClassResolver().loadResourceAsStream(orderSource);
   }
@@ -46,10 +50,6 @@ public class K8sBookGenerator {
   }
 
   private void printApiGroups() {
-    kubernetesClient.getApiGroups()
-        .getGroups()
-        .stream()
-        .map(APIGroup::getName)
-        .forEach(System.out::println);
+    logger.info("Found {} apiGroups", kubernetesClient.getApiGroups().getGroups().size());
   }
 }

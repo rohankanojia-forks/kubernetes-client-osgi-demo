@@ -1,6 +1,5 @@
 package org.eclipse.jkube.quickstart.karaf;
 
-import io.fabric8.kubernetes.api.model.APIGroup;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.dsl.MixedOperation;
 import io.fabric8.kubernetes.client.dsl.Resource;

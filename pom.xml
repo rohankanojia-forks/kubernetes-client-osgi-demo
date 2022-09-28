@@ -38,7 +38,7 @@
     <jackson.bundle.version>2.13.1</jackson.bundle.version>
     <zjsonpatch.version>0.3.0</zjsonpatch.version>
     <generex.version>1.0.2</generex.version>
-    <snakeyaml.version>1.32</snakeyaml.version>
+    <snakeyaml.version>1.33</snakeyaml.version>
 <!--    <snakeyaml.version>1.30</snakeyaml.version>-->
     <jkube.generator.from>quay.io/jkube/jkube-karaf-binary-s2i:0.0.10</jkube.generator.from>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
